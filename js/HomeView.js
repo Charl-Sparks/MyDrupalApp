@@ -1,14 +1,14 @@
 var HomeView = function(store) {
 
-	this.render = function() {
-	    this.el.html(HomeView.template());
-	    return this;
-	};
-
 	this.findByName = function() {
 	    store.findByName($('.search-key').val(), function(employees) {
 	        $('.employee-list').html(HomeView.liTemplate(employees));
 	    });
+	};
+
+	this.render = function() {
+	    this.el.html(HomeView.template());
+	    return this;
 	};
  
     this.initialize = function() {
@@ -18,8 +18,6 @@ var HomeView = function(store) {
     };
  
     this.initialize();
-
-
  
 }
  
