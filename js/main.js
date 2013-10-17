@@ -9,7 +9,13 @@ var app = {
         var match = hash.match(app.detailsURL);
         if (match) {
             this.store.findById(Number(match[1]), function(employee) {
-                $('body').html(new EmployeeView(employee).render().el);
+                $('body').html(new FormView(employee).render().el);
+            });
+        }
+        var newform = hash.match(app.newformURL);
+        if (newform) {
+            this.store.addData(tx, function(employee) {
+                $('body').html(new FormCreate(employee).render().el);
             });
         }
     },
@@ -22,6 +28,7 @@ var app = {
     initialize: function() {
         var self = this;
         this.detailsURL = /^#employees\/(\d{1,})/;
+        this.newformURL = /^#newform\/(\d{1,})/;
         this.registerEvents();
         this.store = new WebSqlStore(function() {
             self.route();

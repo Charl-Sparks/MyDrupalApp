@@ -20,7 +20,7 @@ var WebSqlStore = function(successCallback, errorCallback) {
     }
 
     this.createTable = function(tx) {
-        tx.executeSql('DROP TABLE IF EXISTS employee');
+        //tx.executeSql('DROP TABLE IF EXISTS employee');
         var sql = "CREATE TABLE IF NOT EXISTS employee ( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "firstName VARCHAR(50), " +
@@ -119,6 +119,29 @@ var WebSqlStore = function(successCallback, errorCallback) {
             }
         );
     };
+
+    this.addData = function(tx, employees) {
+        var employees = [
+                {"id": 16, "firstName": "Ryan", "lastName": "Howard", "title":"Vice President, North East", "managerId": 0, "city":"New York, NY", "cellPhone":"212-999-8888", "officePhone":"212-999-8887", "email":"ryan@dundermifflin.com"}
+              
+ 
+            ];
+        var l = employees.length;
+        var sql = "INSERT OR REPLACE INTO employee " +
+            "(id, firstName, lastName, managerId, title, city, officePhone, cellPhone, email) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var e;
+        for (var i = 0; i < l; i++) {
+            e = employees[i];
+            tx.executeSql(sql, [e.id, e.firstName, e.lastName, e.managerId, e.title, e.city, e.officePhone, e.cellPhone, e.email],
+                    function() {
+                        console.log('INSERT success');
+                    },
+                    function(tx, error) {
+                        alert('INSERT error: ' + error.message);
+                    });
+        }
+    }
 
     this.initializeDatabase(successCallback, errorCallback);
 

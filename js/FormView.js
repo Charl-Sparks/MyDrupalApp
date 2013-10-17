@@ -13,4 +13,4 @@ var FormView = function(employee) {
  
  }
  
-EmployeeView.template = Handlebars.compile($("#form-tpl").html());
+FormView.template = Handlebars.compile($("#form-tpl").html());
