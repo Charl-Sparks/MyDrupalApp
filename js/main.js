@@ -28,7 +28,7 @@ var app = {
     initialize: function() {
         var self = this;
         this.detailsURL = /^#employees\/(\d{1,})/;
-        this.newformURL = /^#newform\/(\d{1,})/;
+        this.newformURL = /#newform/;
         this.registerEvents();
         this.store = new WebSqlStore(function() {
             self.route();
